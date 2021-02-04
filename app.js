@@ -2,10 +2,15 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
+const config = require('config');
 
 const usersRouter = require('./routes/auth/users');
 const blogPostsRouter = require('./routes/blogPosts/blogPosts');
 
+if (!config.get("jwtPrivateKey")) {
+    console.error("jwt privatekey not defined!");
+    process.exit(1);
+}
 
 app.use(
     cors({
