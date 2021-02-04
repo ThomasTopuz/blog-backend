@@ -3,7 +3,7 @@ const router = express.Router();
 const {User, validateUser} = require('../../models/User');
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
-
+const auth = require('../../middleware/auth');
 
 router.post("/login", async (req, res) => {
     const user = await User.findOne({email: req.body.email})
@@ -20,7 +20,7 @@ router.post('/register', (async (req, res) => {
     if (user) return res.status(400).send('user already registered');
 
     const error = validateUser(req.body);
-    if(error.error) return res.status(400).send(error.error.details[0].message);
+    if (error.error) return res.status(400).send(error.error.details[0].message);
     user = new User(_.pick(req.body, ['username', 'email', 'password']))
     user.isAdmin = false
     user.password = await bcrypt.hash(user.password, await bcrypt.genSalt(10))
@@ -31,6 +31,10 @@ router.post('/register', (async (req, res) => {
 }));
 
 //me
-
+router.get("/me", auth, async (req, res) => {
+    const user = await User.findById(req.user._id);
+    if (!user) return res.status(400).send('no user found with the given jwt token');
+    return res.status(200).send(_.pick(user, ['username', 'email', 'isAdmin']));
+});
 
 module.exports = router;

@@ -18,7 +18,7 @@ const blogPostSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    votes: {
+    likes: {
         type: Number,
         default: 0
 
