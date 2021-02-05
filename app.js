@@ -23,7 +23,7 @@ app.use(express.urlencoded({extended: false}));
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/post', blogPostsRouter);
 mongoose
-    .connect("mongodb://localhost:27017/blog")
+    .connect("mongodb://mongo:27017/blog")
     .then(() => {
         console.log("running");
     })
