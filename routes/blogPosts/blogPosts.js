@@ -31,6 +31,7 @@ router.post('/', auth, async (req, res) => {
     if (error.error) return res.status(400).send(error.error.details[0].message);
     const blogPost = new Post(_.pick(req.body, ['title', 'content']));
     blogPost.userId = req.user._id;
+    blogPost.username = user.username;
     await blogPost.save();
     user.createdPostsId.push(blogPost._id);
     await user.save();
@@ -69,7 +70,7 @@ router.delete("/:id", auth, async (req, res) => {
 });
 
 // like
-router.post("/liketoggle/:id", auth, async (req, res) => {
+router.get("/liketoggle/:id", auth, async (req, res) => {
     const post = await Post.findById(req.params.id);
     if (!post) return res.status(400).send('post doesn\'t exist');
 

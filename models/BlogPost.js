@@ -26,6 +26,10 @@ const blogPostSchema = new mongoose.Schema({
     userId: {
         type: String,
         required: true
+    },
+    username: {
+        type: String,
+        required: true
     }
 });
 const validatePost = (blogPost) => {
