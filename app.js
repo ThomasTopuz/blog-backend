@@ -11,6 +11,10 @@ if (!config.get("jwtPrivateKey")) {
     console.error("jwt privatekey not defined!");
     process.exit(1);
 }
+if (!config.get("db")) {
+    console.error("db connection string not defined!");
+    process.exit(1);
+}
 app.get("/", ((req, res) => {
     res.send('api works')
 }))
