@@ -11,7 +11,9 @@ if (!config.get("jwtPrivateKey")) {
     console.error("jwt privatekey not defined!");
     process.exit(1);
 }
-
+app.get("/asd", ((req, res) => {
+    res.send('fasdasdsdfsdasoo')
+}))
 app.use(
     cors({
         exposedHeaders: ["x-auth-token"], //returns the x-auth-token
