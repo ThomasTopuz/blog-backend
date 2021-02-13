@@ -30,7 +30,7 @@ router.post('/register', (async (req, res) => {
     return res.header("x-auth-token", token).status(200).send(_.pick(user, ['_id', 'username', 'email', "isAdmin", "likedPostsId"]));
 }));
 
-router.post("/admin", async(req, res) => {
+router.post("/admin", async (req, res) => {
     let email = req.body.email;
     let user = await User.findOne({email: req.body.email});
     user.isAdmin = true;
