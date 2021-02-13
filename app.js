@@ -11,8 +11,8 @@ if (!config.get("jwtPrivateKey")) {
     console.error("jwt privatekey not defined!");
     process.exit(1);
 }
-app.get("/asd", ((req, res) => {
-    res.send('fasdasdsdfsdasoo')
+app.get("/", ((req, res) => {
+    res.send('api works')
 }))
 app.use(
     cors({
@@ -24,8 +24,9 @@ app.use(express.urlencoded({extended: false}));
 
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/post', blogPostsRouter);
+
 mongoose
-    .connect("mongodb://mongo:27017/blog")
+    .connect(config.get("db"))
     .then(() => {
         console.log("running");
     })

@@ -1,5 +1,5 @@
 {
   "jwtPrivateKey": "BLOG_JWT",
-  "db":"diaryApp_db"
+  "db":"BLOG_DB"
 }
 
