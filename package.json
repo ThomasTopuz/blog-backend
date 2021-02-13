@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon -L app.js"
+    "start": "node app.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
@@ -17,6 +17,7 @@
     "joi": "^17.3.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.20",
+    "material-ui-popup-state": "^1.7.1",
     "mongoose": "^5.11.15",
     "morgan": "~1.9.1",
     "nodemon": "^2.0.7"
