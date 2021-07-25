@@ -15,8 +15,8 @@ if (!config.get("db")) {
     console.error("db connection string not defined!");
     process.exit(1);
 }
-app.get("/", ((req, res) => {
-    res.send('api works')
+app.get("/health", ((req, res) => {
+    res.send('api works').status(200);
 }))
 app.use(
     cors({
