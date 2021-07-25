@@ -3,6 +3,7 @@ WORKDIR /usr/src/app
 COPY ./package.json ./
 RUN npm install
 COPY . .
-ENV BLOG_JWT=jwt123abcd
+ENV BLOG_JWT=
+ENV BLOG_DB=
 EXPOSE 5000
 CMD ["npm", "start"]

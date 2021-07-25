@@ -3,11 +3,11 @@ const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
 const config = require('config');
+const gateway = require("./routes/gateway");
+var morgan = require('morgan')
 
-const usersRouter = require('./routes/auth/users');
-const blogPostsRouter = require('./routes/blogPosts/blogPosts');
-
-if (!config.get("jwtPrivateKey")) {
+// ENV VARS CHECK
+if (!config.get("jwtPrivateKey") ) {
     console.error("jwt privatekey not defined!");
     process.exit(1);
 }
@@ -15,9 +15,9 @@ if (!config.get("db")) {
     console.error("db connection string not defined!");
     process.exit(1);
 }
-app.get("/health", ((req, res) => {
-    res.send('api works').status(200);
-}))
+
+// MIDDLEWARES
+app.use(morgan('tiny'));
 app.use(
     cors({
         exposedHeaders: ["x-auth-token"], //returns the x-auth-token
@@ -25,10 +25,14 @@ app.use(
 );
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+app.use('/api/v1', gateway);
 
-app.use('/api/v1/users', usersRouter);
-app.use('/api/v1/post', blogPostsRouter);
+// HEALTHCHECK ENDPOINT
+app.get("/health", ((req, res) => {
+    res.send('api works').status(200);
+}));
 
+// DB CONNECTION
 mongoose
     .connect(config.get("db"))
     .then(() => {
@@ -38,5 +42,5 @@ mongoose
         console.log(err);
     });
 
-app.listen(process.env.PORT, () => console.log("Listening on 5000"))
+app.listen(config.get("port"), () => console.log("Listening on 5000"))
 module.exports = app;
