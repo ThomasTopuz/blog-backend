@@ -1,5 +1,5 @@
 ## Full stack MERN app hosted on heroku.com
-### Available at https://blogapp-sample.netlify.app
+### Live project: https://blogapp-sample.netlify.app
 ## Tech stack used:
  -  reactjs
  -  material ui kit
